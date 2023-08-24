@@ -1,0 +1,86 @@
+class Google_Navigation_Bar extends StatefulWidget {
+  const Google_Navigation_Bar({Key? key}) : super(key: key);
+
+  @override
+  State<Google_Navigation_Bar> createState() => _Google_Navigation_BarState();
+}
+
+class _Google_Navigation_BarState extends State<Google_Navigation_Bar> {
+  List tabs =const [
+    Page1(),
+    Page2(),
+    Page3(),
+    Page4(),
+    Page5(),
+  ];
+  int current_tab = 0;
+  @override
+  void initState() {
+    setState(() {
+      current_tab = 0;
+    });
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBody: true,
+      body: tabs[current_tab],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 1,
+          horizontal: 1,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              border: Border.all(
+                  color: Colors.black
+              ),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: GNav(
+              gap: 5,
+              color: Colors.black,
+              activeColor: Colors.white,
+              tabBorderRadius: 50,
+              tabBackgroundColor: Colors.black,
+              duration: const Duration(milliseconds: 500),
+              iconSize: 20,
+              textStyle: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.all(15),
+              onTabChange: (index){
+                setState(() {
+                  current_tab = index;
+                });
+              },
+              tabs: const [
+                GButton(
+                  icon: Ionicons.home_outline,
+                  text: 'Home',
+                ),
+                GButton(
+                  icon: Ionicons.search,
+                  text: 'Search',
+                ),
+                GButton(
+                  icon: Ionicons.receipt_outline,
+                  text: 'History',
+                ),
+                GButton(
+                  icon: Ionicons.person_outline,
+                  text: 'Profile',
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
